@@ -2,13 +2,13 @@
 
 use crate::{utils::HexSlice, BlockDevice, Error, Read};
 use bitflags::bitflags;
-use log::info;
 use core::convert::TryInto;
 use core::fmt;
 use embedded_hal::blocking::delay::DelayUs;
 use embedded_hal::blocking::spi::Transfer;
 use embedded_hal::blocking::spi::Write;
 use embedded_hal::digital::v2::OutputPin;
+use log::info;
 
 /// 3-Byte JEDEC manufacturer and device identification.
 pub struct Identification {
@@ -31,8 +31,8 @@ impl Identification {
 
         // Find the end of the continuation bytes (0x7F)
         let mut start_idx = 0;
-        for i in 0..(buf.len() - 2) {
-            if buf[i] != 0x7F {
+        for (i, item) in buf.iter().enumerate().take(buf.len() - 2) {
+            if *item != 0x7F {
                 start_idx = i;
                 break;
             }
