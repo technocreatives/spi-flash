@@ -2,6 +2,7 @@
 
 use crate::{utils::HexSlice, BlockDevice, Error, Read};
 use bitflags::bitflags;
+use log::info;
 use core::convert::TryInto;
 use core::fmt;
 use embedded_hal::blocking::delay::DelayUs;
