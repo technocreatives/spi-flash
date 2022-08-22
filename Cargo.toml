@@ -12,5 +12,4 @@ license = "0BSD"
 
 [dependencies]
 embedded-hal = "0.2.3"
-log = "0.4.6"
-bitflags = "1.0.4"
+defmt = "0.3.2"
