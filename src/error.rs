@@ -57,3 +57,18 @@ where
         }
     }
 }
+
+impl<E, GPIO: OutputPin> defmt::Format for Error<E, GPIO>
+where
+    E: Debug,
+    GPIO::Error: Debug,
+{
+    fn format(&self, f: defmt::Formatter<'_>) {
+        match self {
+            Error::Spi(spi) => defmt::write!(f, "Error::Spi({:?})", defmt::Debug2Format(spi)),
+            Error::Gpio(gpio) => defmt::write!(f, "Error::Gpio({:?})", defmt::Debug2Format(gpio)),
+            Error::UnexpectedStatus => defmt::write!(f, "Error::UnexpectedStatus"),
+            Error::__NonExhaustive(_) => unreachable!(),
+        }
+    }
+}

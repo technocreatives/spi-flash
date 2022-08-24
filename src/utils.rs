@@ -16,3 +16,9 @@ impl<T: AsRef<[u8]>> fmt::Debug for HexSlice<T> {
         f.write_str("]")
     }
 }
+
+impl<T: AsRef<[u8]>> defmt::Format for HexSlice<T> {
+    fn format(&self, f: defmt::Formatter<'_>) {
+        defmt::write!(f, "{=[u8]:x}", self.0.as_ref());
+    }
+}

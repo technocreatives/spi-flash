@@ -1,14 +1,13 @@
 //! Driver for 25-series SPI Flash and EEPROM chips.
 
 use crate::{utils::HexSlice, BlockDevice, Error, Read};
-use bitflags::bitflags;
 use core::convert::TryInto;
 use core::fmt;
+use defmt::info;
 use embedded_hal::blocking::delay::DelayUs;
 use embedded_hal::blocking::spi::Transfer;
 use embedded_hal::blocking::spi::Write;
 use embedded_hal::digital::v2::OutputPin;
-use log::info;
 
 /// 3-Byte JEDEC manufacturer and device identification.
 pub struct Identification {
@@ -71,6 +70,12 @@ impl fmt::Debug for Identification {
     }
 }
 
+impl defmt::Format for Identification {
+    fn format(&self, f: defmt::Formatter<'_>) {
+        defmt::write!(f, "Identification({})", &HexSlice(self.bytes));
+    }
+}
+
 #[allow(unused)] // TODO support more features
 enum Opcode {
     /// Read the 8-bit legacy device ID.
@@ -95,7 +100,7 @@ enum Opcode {
     ChipErase = 0xC7,
 }
 
-bitflags! {
+defmt::bitflags! {
     /// Status register bits.
     pub struct Status: u8 {
         /// Erase or write in progress.
