@@ -1,8 +1,8 @@
 [package]
 name = "spi-flash"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Jonas Schievink <jonasschievink@gmail.com>", "Henrik Böving <hargonix@gmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "A generic driver for different SPI Flash and EEPROM chips"
 repository = "https://github.com/technocreatives/spi-flash.git"
 keywords = ["embedded-hal-driver", "serial", "flash", "eeprom", "spi"]
